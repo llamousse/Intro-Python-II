@@ -39,7 +39,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player1 = Player(room['outside'])
+adventurer = Player(room['outside'])
 
 # Write a loop that:
 #
@@ -53,29 +53,46 @@ player1 = Player(room['outside'])
 # If the user enters "q", quit the game.
 
 # Create a REPL loop to process commands
+
+print("\n\n\nWelcome to the mystery cave.\nA hidden treasure lies within.\nWill you be the one to find the treasure?")
 while True: # Loop
+    print(f"\n\nYou are at the {adventurer.room.name} \n{adventurer.room.description}\n")
     # Read
-    cmd = input(">>>  ")
+    cmd = input("Choose a direction to proceed (n, e, s, w) >>>  ")
 
     # REPL should accept 'n', 'e', 's', 'w' commands
     # 'q' to quit
     # Eval
     if cmd == "n":
-        # Do something
-        print(room.outside)
-        pass
+        if (adventurer.room.n_to != None):
+            adventurer.room = adventurer.room.n_to
+            pass
+        else:
+            print("Seems like you can't go North from here. Hmm...\n")
     elif cmd == "e":
-        # Do something
-        pass
+        if (adventurer.room.e_to != None):
+            adventurer.room = adventurer.room.e_to
+            pass
+        else:
+            print("Seems like you can't go East from here. Hmm...\n")
     elif cmd == "s":
-        # Do something
+        if (adventurer.room.s_to != None):
+            adventurer.room = adventurer.room.s_to
+            pass
+        else:
+            print("Seems like you can't go South from here. Hmm...\n")
         pass
     elif cmd == "w":
-        # Do something
+        if (adventurer.room.w_to != None):
+            adventurer.room = adventurer.room.w_to
+            pass
+        else:
+            print("Seems like you can't go West from here. Hmm...\n")
         pass
     elif cmd == "q":
-        # Break out of loop
-        print("Quitting game, goodbye!")
+        # Break out of loop - quit game
+        print("Quitting game now. Come back soon, goodbye!")
         break
     else:
+        #Print
         print("That movement is not allowed! Please choose a valid direction.")
