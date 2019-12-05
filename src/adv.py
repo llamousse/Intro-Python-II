@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -33,6 +34,22 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+
+# Declare all items
+
+item = {
+    'key': Item("key", "shiny"),
+    'flashlight': Item("flashlight", "black"),
+    'llama': Item("llama", "plushie"),
+    'candy': Item("KitKat", "chocolate bar")
+}
+
+# Link items to respective rooms
+
+room['foyer'].items = item['flashlight']
+room['overlook'].items = item['candy']
+room['narrow'].items = item['key']
+room['narrow'].items = item['llama']
 
 #
 # Main
@@ -68,30 +85,31 @@ while True: # Loop
             adventurer.room = adventurer.room.n_to
             pass
         else:
-            print("Seems like you can't go North from here. Hmm...\n")
+            print("Seems like you can't go that way...\n")
     elif cmd == "e":
         if (adventurer.room.e_to != None):
             adventurer.room = adventurer.room.e_to
             pass
         else:
-            print("Seems like you can't go East from here. Hmm...\n")
+            print("Seems like you can't go that way...\n")
     elif cmd == "s":
         if (adventurer.room.s_to != None):
             adventurer.room = adventurer.room.s_to
             pass
         else:
-            print("Seems like you can't go South from here. Hmm...\n")
-        pass
+            print("Seems like you can't go that way...\n")
     elif cmd == "w":
         if (adventurer.room.w_to != None):
             adventurer.room = adventurer.room.w_to
             pass
         else:
-            print("Seems like you can't go West from here. Hmm...\n")
+            print("Seems like you can't go that way...\n")
+    elif cmd == "i":
+        adventurer.print_inventory()
         pass
     elif cmd == "q":
         # Break out of loop - quit game
-        print("Quitting game now. Come back soon, goodbye!")
+        print("Come back soon, goodbye!")
         break
     else:
         #Print
