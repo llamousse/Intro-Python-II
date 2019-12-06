@@ -13,4 +13,4 @@ class Room():
 
     def discover_items(self):
         for i in self.items:
-            print(f"{i.description} {i.name}\n")
+            print(f"{i.description} {i.name}")

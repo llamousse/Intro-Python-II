@@ -41,7 +41,7 @@ item = {
     'key': Item("key", "shiny"),
     'flashlight': Item("flashlight", "black"),
     # 'llama': Item("llama", "plushie"),
-    'candy': Item("KitKat", "chocolate bar")
+    'candy': Item("candy", "chocolate")
 }
 
 # Link items to respective rooms
@@ -79,6 +79,8 @@ while True: # Loop
     else:
         print(f"\nYou are at the {adventurer.room.name}.\n{adventurer.room.description}\n\nYou find the following items: ")
         adventurer.room.discover_items()
+        print("[to pick up an item, enter 'get' or 'take' item name (i.e. get/take key)]")
+        print("[to drop an item, enter 'drop' item name (i.e. drop key)]\n")
     
     # Read
     cmd = input("Choose a command to proceed.\n(n, e, s, w for directions, i for inventory) >>> ")
@@ -111,7 +113,7 @@ while True: # Loop
                 pass
             else:
                 print("Seems like you can't go that way...\n")
-        elif cmd == "i":
+        elif cmd == "i" or cmd == "inventory":
             adventurer.print_inventory()
             pass
         elif cmd == "q":
