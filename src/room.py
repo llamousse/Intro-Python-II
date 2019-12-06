@@ -11,12 +11,6 @@ class Room():
         self.w_to = None
         self.items = []
 
-    # def __str__(self):
-    #     if len(self.items) != 0:
-    #         print(f"Room name: {self.name} \nDescription: {self.description} \n Available Items: {self.items}")
-    #     else:
-    #         print(f"Room name: {self.name} \nDescription: {self.description}")
-
     def discover_items(self):
         for i in self.items:
-            print(f"{i.description} {i.name}")
+            print(f"{i.description} {i.name}\n")

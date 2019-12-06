@@ -40,7 +40,7 @@ room['treasure'].s_to = room['narrow']
 item = {
     'key': Item("key", "shiny"),
     'flashlight': Item("flashlight", "black"),
-    'llama': Item("llama", "plushie"),
+    # 'llama': Item("llama", "plushie"),
     'candy': Item("KitKat", "chocolate bar")
 }
 
@@ -49,7 +49,7 @@ item = {
 room['foyer'].items.append(item['flashlight'])
 room['overlook'].items.append(item['candy'])
 room['narrow'].items.append(item['key'])
-room['outside'].items.append(item['llama'])
+# room['outside'].items.append(item['llama'])
 
 #
 # Main
@@ -77,7 +77,7 @@ while True: # Loop
     if len(adventurer.room.items) == 0:
         print(f"\nYou are at the {adventurer.room.name}.\n{adventurer.room.description}\n")
     else:
-        print(f"\nYou are at the {adventurer.room.name}.\n{adventurer.room.description}\nYou find the following items: ")
+        print(f"\nYou are at the {adventurer.room.name}.\n{adventurer.room.description}\n\nYou find the following items: ")
         adventurer.room.discover_items()
     
     # Read
@@ -86,37 +86,57 @@ while True: # Loop
     # REPL should accept 'n', 'e', 's', 'w' commands
     # 'q' to quit
     # Eval
-    if cmd == "n":
-        if (adventurer.room.n_to != None):
-            adventurer.room = adventurer.room.n_to
+    if len(cmd.split(" ")) == 1:
+        if cmd == "n":
+            if (adventurer.room.n_to != None):
+                adventurer.room = adventurer.room.n_to
+                pass
+            else:
+                print("Seems like you can't go that way...\n")
+        elif cmd == "e":
+            if (adventurer.room.e_to != None):
+                adventurer.room = adventurer.room.e_to
+                pass
+            else:
+                print("Seems like you can't go that way...\n")
+        elif cmd == "s":
+            if (adventurer.room.s_to != None):
+                adventurer.room = adventurer.room.s_to
+                pass
+            else:
+                print("Seems like you can't go that way...\n")
+        elif cmd == "w":
+            if (adventurer.room.w_to != None):
+                adventurer.room = adventurer.room.w_to
+                pass
+            else:
+                print("Seems like you can't go that way...\n")
+        elif cmd == "i":
+            adventurer.print_inventory()
             pass
+        elif cmd == "q":
+            # Break out of loop - quit game
+            print("Come back soon, goodbye!")
+            break
         else:
-            print("Seems like you can't go that way...\n")
-    elif cmd == "e":
-        if (adventurer.room.e_to != None):
-            adventurer.room = adventurer.room.e_to
-            pass
-        else:
-            print("Seems like you can't go that way...\n")
-    elif cmd == "s":
-        if (adventurer.room.s_to != None):
-            adventurer.room = adventurer.room.s_to
-            pass
-        else:
-            print("Seems like you can't go that way...\n")
-    elif cmd == "w":
-        if (adventurer.room.w_to != None):
-            adventurer.room = adventurer.room.w_to
-            pass
-        else:
-            print("Seems like you can't go that way...\n")
-    elif cmd == "i":
-        adventurer.print_inventory()
-        pass
-    elif cmd == "q":
-        # Break out of loop - quit game
-        print("Come back soon, goodbye!")
-        break
+            #Print
+            print("\nThat movement/command is not allowed! Please choose a valid command.")
     else:
-        #Print
-        print("\nThat movement/command is not allowed! Please choose a valid command.")
+        action_cmd = cmd.split(" ")
+        first = action_cmd[0]
+        second = action_cmd[1]
+
+        if first.lower() == "get" or first.lower() == "take":
+            for i in adventurer.room.items:
+                if second.lower() == i.name:
+                    adventurer.on_take(i)
+                else:
+                    print(f"\nHmm... {second} does not seem to be in this room.")
+        elif first.lower() == "drop":
+            for i in adventurer.items:
+                if second.lower() == i.name:
+                    adventurer.on_drop(i)
+                else:
+                    print(f"\nYou don't have this item in your bag.")
+        else:
+            print("\nInvalid command. Please enter a valid command to continue.")
