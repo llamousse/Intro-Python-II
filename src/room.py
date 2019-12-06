@@ -2,17 +2,21 @@
 # description attributes.
 
 class Room():
-    def __init__(self, name, description, items=None):
+    def __init__(self, name, description):
         self.name = name
         self.description = description
-
         self.n_to = None
         self.e_to = None
         self.s_to = None
         self.w_to = None
+        self.items = []
 
-    def __str__(self):
-        if len(self.items) != 0:
-            print(f"Room name: {self.name} \nDescription: {self.description} \n Available Items: {self.items}")
-        else:
-            print(f"Room name: {self.name} \nDescription: {self.description}")
+    # def __str__(self):
+    #     if len(self.items) != 0:
+    #         print(f"Room name: {self.name} \nDescription: {self.description} \n Available Items: {self.items}")
+    #     else:
+    #         print(f"Room name: {self.name} \nDescription: {self.description}")
+
+    def discover_items(self):
+        for i in self.items:
+            print(f"{i.description} {i.name}")

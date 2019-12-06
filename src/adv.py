@@ -6,7 +6,7 @@ from item import Item
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons."),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -46,10 +46,10 @@ item = {
 
 # Link items to respective rooms
 
-room['foyer'].items = item['flashlight']
-room['overlook'].items = item['candy']
-room['narrow'].items = item['key']
-room['narrow'].items = item['llama']
+room['foyer'].items.append(item['flashlight'])
+room['overlook'].items.append(item['candy'])
+room['narrow'].items.append(item['key'])
+room['outside'].items.append(item['llama'])
 
 #
 # Main
@@ -73,9 +73,15 @@ adventurer = Player(room['outside'])
 
 print("\n\n\nWelcome to the mystery cave.\nA hidden treasure lies within.\nWill you be the one to find the treasure?")
 while True: # Loop
-    print(f"\n\nYou are at the {adventurer.room.name} \n{adventurer.room.description}\n")
+    
+    if len(adventurer.room.items) == 0:
+        print(f"\nYou are at the {adventurer.room.name}.\n{adventurer.room.description}\n")
+    else:
+        print(f"\nYou are at the {adventurer.room.name}.\n{adventurer.room.description}\nYou find the following items: ")
+        adventurer.room.discover_items()
+    
     # Read
-    cmd = input("Choose a direction to proceed (n, e, s, w) >>>  ")
+    cmd = input("Choose a command to proceed.\n(n, e, s, w for directions, i for inventory) >>> ")
 
     # REPL should accept 'n', 'e', 's', 'w' commands
     # 'q' to quit
@@ -113,4 +119,4 @@ while True: # Loop
         break
     else:
         #Print
-        print("That movement is not allowed! Please choose a valid direction.")
+        print("\nThat movement/command is not allowed! Please choose a valid command.")
